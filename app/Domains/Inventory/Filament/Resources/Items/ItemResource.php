@@ -8,7 +8,6 @@ use App\Domains\Inventory\Filament\Resources\Items\Pages\ListItems;
 use App\Domains\Inventory\Filament\Resources\Items\Schemas\ItemForm;
 use App\Domains\Inventory\Filament\Resources\Items\Tables\ItemsTable;
 use App\Domains\Inventory\Models\Item;
-use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -20,7 +19,11 @@ class ItemResource extends Resource
 {
     protected static ?string $model = Item::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static ?string $recordTitleAttribute = 'name_with_id';
+
+    protected static string|\UnitEnum|null $navigationGroup = 'Inventory';
+
+    protected static string|\BackedEnum|null $navigationIcon = Heroicon::OutlinedPaperClip;
 
     public static function form(Schema $schema): Schema
     {
@@ -30,13 +33,6 @@ class ItemResource extends Resource
     public static function table(Table $table): Table
     {
         return ItemsTable::configure($table);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array
@@ -54,5 +50,10 @@ class ItemResource extends Resource
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['public_id', 'name'];
     }
 }

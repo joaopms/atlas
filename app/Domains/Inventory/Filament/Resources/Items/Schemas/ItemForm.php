@@ -4,6 +4,7 @@ namespace App\Domains\Inventory\Filament\Resources\Items\Schemas;
 
 use App\Domains\Inventory\Models\Container;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -13,6 +14,10 @@ class ItemForm
     {
         return $schema
             ->components([
+                TextInput::make('public_id')
+                    ->disabled()
+                    ->readOnly(),
+
                 TextInput::make('name')
                     ->required(),
 
@@ -22,7 +27,7 @@ class ItemForm
                     ->preload()
                     ->getOptionLabelFromRecordUsing(fn /** @var $record Container */ ($record) => $record->name_with_id),
 
-                TextInput::make('notes')
+                Textarea::make('notes')
                     ->default(null),
             ]);
     }

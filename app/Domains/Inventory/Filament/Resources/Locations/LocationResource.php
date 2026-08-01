@@ -9,7 +9,6 @@ use App\Domains\Inventory\Filament\Resources\Locations\RelationManagers\Containe
 use App\Domains\Inventory\Filament\Resources\Locations\Schemas\LocationForm;
 use App\Domains\Inventory\Filament\Resources\Locations\Tables\LocationsTable;
 use App\Domains\Inventory\Models\Location;
-use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -21,7 +20,11 @@ class LocationResource extends Resource
 {
     protected static ?string $model = Location::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static ?string $recordTitleAttribute = 'name';
+
+    protected static string|\UnitEnum|null $navigationGroup = 'Inventory';
+
+    protected static string|\BackedEnum|null $navigationIcon = Heroicon::OutlinedTag;
 
     public static function form(Schema $schema): Schema
     {
@@ -55,5 +58,10 @@ class LocationResource extends Resource
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['name'];
     }
 }

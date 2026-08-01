@@ -6,7 +6,6 @@ use App\Domains\Inventory\Filament\Resources\Containers\RelationManagers\ItemsRe
 use App\Domains\Inventory\Filament\Resources\Containers\Schemas\ContainerForm;
 use App\Domains\Inventory\Filament\Resources\Containers\Tables\ContainersTable;
 use App\Domains\Inventory\Models\Container;
-use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -18,9 +17,11 @@ class ContainerResource extends Resource
 {
     protected static ?string $model = Container::class;
 
-    protected static ?string $slug = 'containers';
+    protected static ?string $recordTitleAttribute = 'name_with_id';
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|\UnitEnum|null $navigationGroup = 'Inventory';
+
+    protected static string|\BackedEnum|null $navigationIcon = Heroicon::OutlinedArchiveBox;
 
     public static function form(Schema $schema): Schema
     {
@@ -58,6 +59,6 @@ class ContainerResource extends Resource
 
     public static function getGloballySearchableAttributes(): array
     {
-        return ['name'];
+        return ['public_id', 'name'];
     }
 }

@@ -20,7 +20,8 @@ class ContainersTable
     {
         return $table
             ->columns([
-                TextColumn::make('public_id'),
+                TextColumn::make('public_id')
+                    ->label('ID'),
 
                 TextColumn::make('name')
                     ->searchable()

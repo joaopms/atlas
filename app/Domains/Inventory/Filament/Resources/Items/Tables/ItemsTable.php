@@ -18,21 +18,28 @@ class ItemsTable
         return $table
             ->columns([
                 TextColumn::make('public_id')
+                    ->label('ID')
                     ->searchable(),
-                TextColumn::make('container.name_with_id')
-                    ->searchable(),
+
                 TextColumn::make('name')
                     ->searchable(),
+
+                TextColumn::make('container.name_with_id')
+                    ->searchable(),
+
                 TextColumn::make('notes')
                     ->searchable(),
+
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()

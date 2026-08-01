@@ -12,6 +12,10 @@ class ContainerForm
     {
         return $schema
             ->components([
+                TextInput::make('public_id')
+                    ->disabled()
+                    ->readOnly(),
+
                 TextInput::make('name')
                     ->required(),
 
