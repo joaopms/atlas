@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('inventory_containers', function (Blueprint $table) {
             $table->id();
-            $table->string('public_id');
+            $table->string('public_id')->nullable();
             $table->string('name');
             $table->foreignId('location_id')->nullable();
             $table->timestamps();
