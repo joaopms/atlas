@@ -2,22 +2,14 @@
 
 namespace App\Domains\Inventory\Filament\Resources\Containers;
 
+use App\Domains\Inventory\Filament\Resources\Containers\RelationManagers\ItemsRelationManager;
+use App\Domains\Inventory\Filament\Resources\Containers\Schemas\ContainerForm;
+use App\Domains\Inventory\Filament\Resources\Containers\Tables\ContainersTable;
 use App\Domains\Inventory\Models\Container;
 use BackedEnum;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
-use Filament\Actions\ForceDeleteAction;
-use Filament\Actions\ForceDeleteBulkAction;
-use Filament\Actions\RestoreAction;
-use Filament\Actions\RestoreBulkAction;
-use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -32,39 +24,19 @@ class ContainerResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return $schema
-            ->components([
-                TextInput::make('name')
-                    ->required(),
-            ]);
+        return ContainerForm::configure($schema);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                TextColumn::make('public_id'),
+        return ContainersTable::configure($table);
+    }
 
-                TextColumn::make('name')
-                    ->searchable()
-                    ->sortable(),
-            ])
-            ->filters([
-                TrashedFilter::make(),
-            ])
-            ->recordActions([
-                EditAction::make(),
-                DeleteAction::make(),
-                RestoreAction::make(),
-                ForceDeleteAction::make(),
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                    RestoreBulkAction::make(),
-                    ForceDeleteBulkAction::make(),
-                ]),
-            ]);
+    public static function getRelations(): array
+    {
+        return [
+            ItemsRelationManager::make(),
+        ];
     }
 
     public static function getPages(): array

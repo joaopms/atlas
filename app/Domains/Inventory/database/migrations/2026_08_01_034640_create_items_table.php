@@ -8,17 +8,18 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('inventory_containers', function (Blueprint $table) {
+        Schema::create('inventory_items', function (Blueprint $table) {
             $table->id();
             $table->string('public_id');
+            $table->foreignId('container_id')->nullable();
             $table->string('name');
-            $table->foreignId('location_id')->nullable();
+            $table->string('notes')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('location_id')
+            $table->foreign('container_id')
                 ->references('id')
-                ->on('inventory_locations')
+                ->on('inventory_containers')
                 ->cascadeOnUpdate()
                 ->nullOnDelete();
         });

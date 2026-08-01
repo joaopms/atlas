@@ -2,8 +2,8 @@
 
 namespace App\Domains\Inventory\Models;
 
-use App\Domains\Inventory\database\factories\ContainerFactory;
-use App\Domains\Inventory\Observers\ContainerObserver;
+use App\Domains\Inventory\database\factories\ItemFactory;
+use App\Domains\Inventory\Observers\ItemObserver;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
@@ -11,27 +11,21 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-#[ObservedBy(ContainerObserver::class)]
-#[UseFactory(ContainerFactory::class)]
+#[ObservedBy(ItemObserver::class)]
+#[UseFactory(ItemFactory::class)]
 #[Fillable('name')]
-class Container extends Model
+class Item extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'inventory_containers';
+    protected $table = 'inventory_items';
 
-    public function location(): BelongsTo
+    public function container(): BelongsTo
     {
-        return $this->belongsTo(Location::class);
-    }
-
-    public function items(): HasMany
-    {
-        return $this->hasMany(Item::class);
+        return $this->belongsTo(Container::class, 'container_id');
     }
 
     protected function nameWithId(): Attribute

@@ -2,18 +2,17 @@
 
 namespace App\Domains\Inventory\database\factories;
 
-use App\Domains\Inventory\Models\Container;
+use App\Domains\Inventory\Models\Location;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
-class ContainerFactory extends Factory
+class LocationFactory extends Factory
 {
-    protected $model = Container::class;
+    protected $model = Location::class;
 
     public function definition(): array
     {
         return [
-            'public_id' => $this->faker->word(),
             'name' => $this->faker->name(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
