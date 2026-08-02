@@ -20,6 +20,8 @@ class InventoryServiceProvider extends ServiceProvider
 
         $this->loadMigrationsFrom(app_path('Domains/Inventory/database/migrations'));
 
+        $this->loadViewsFrom(app_path('Domains/Inventory/resources/views'), 'Inventory');
+
         Panel::configureUsing(function (Panel $panel): void {
             if ($panel->getId() !== 'admin') {
                 return;

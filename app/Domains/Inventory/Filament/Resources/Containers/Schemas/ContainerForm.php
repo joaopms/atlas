@@ -4,6 +4,8 @@ namespace App\Domains\Inventory\Filament\Resources\Containers\Schemas;
 
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\View;
 use Filament\Schemas\Schema;
 
 class ContainerForm
@@ -12,6 +14,13 @@ class ContainerForm
     {
         return $schema
             ->components([
+                // Label
+                Section::make()
+                    ->schema([
+                        View::make('Inventory::filament.schemas.components.label')
+                            ->viewData(['model' => $schema->model]),
+                    ]),
+
                 TextInput::make('public_id')
                     ->disabled()
                     ->readOnly(),
