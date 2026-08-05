@@ -17,7 +17,7 @@ class ContainerForm
                 // Label
                 Section::make()
                     ->schema([
-                        View::make('Inventory::filament.schemas.components.label')
+                        View::make('Inventory::filament.schemas.components.label-container')
                             ->viewData(['model' => $schema->model]),
                     ]),
 
