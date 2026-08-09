@@ -12,11 +12,17 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->trustProxies([
-            ...array_filter(
-                explode(',', (string) env('TRUSTED_PROXIES', ''))
-            ),
-        ]);
+        $middleware->trustProxies(
+            at: [
+                ...array_filter(
+                    explode(',', (string) env('TRUSTED_PROXIES', ''))
+                ),
+            ],
+            headers: Request::HEADER_X_FORWARDED_FOR |
+            Request::HEADER_X_FORWARDED_HOST |
+            Request::HEADER_X_FORWARDED_PORT |
+            Request::HEADER_X_FORWARDED_PROTO
+        );
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
