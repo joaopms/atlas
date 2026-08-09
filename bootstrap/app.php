@@ -12,7 +12,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->trustProxies(config('app.trusted_proxies'));
+        $middleware->trustProxies([
+            ...array_filter(
+                explode(',', (string) env('TRUSTED_PROXIES', ''))
+            ),
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
