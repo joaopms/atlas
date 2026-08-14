@@ -16,8 +16,6 @@ class InventoryServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        $this->bootRoutes();
-
         $this->loadMigrationsFrom(app_path('Domains/Inventory/database/migrations'));
 
         $this->loadViewsFrom(app_path('Domains/Inventory/resources/views'), 'Inventory');
@@ -34,19 +32,6 @@ class InventoryServiceProvider extends ServiceProvider
     public function boot(): void
     {
         parent::register();
-    }
-
-    private function bootRoutes(): void
-    {
-        // Route::middleware('api')
-        //     ->name('api.')
-        //     ->prefix('api')
-        //     ->namespace($this->namespace)
-        //     ->group(fn () => $this->loadRoutesFrom(__DIR__.DIRECTORY_SEPARATOR.'routes'.DIRECTORY_SEPARATOR.'api.php'));
-
-        // Route::middleware(['web', 'auth'])
-        //     ->namespace($this->namespace)
-        //     ->group(fn () => $this->loadRoutesFrom(__DIR__.DIRECTORY_SEPARATOR.'routes'.DIRECTORY_SEPARATOR.'web.php'));
     }
 
     /**

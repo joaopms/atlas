@@ -5,6 +5,7 @@ namespace App\Domains\Inventory\Models;
 use App\Domains\Inventory\database\factories\ItemFactory;
 use App\Traits\HasPublicId;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\RouteKey;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[UseFactory(ItemFactory::class)]
 #[Fillable('name')]
+#[RouteKey('public_id')]
 class Item extends Model
 {
     use HasFactory;
