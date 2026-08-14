@@ -2,6 +2,9 @@
 
 namespace App\Domains\Inventory\Filament\Resources\Containers;
 
+use App\Domains\Inventory\Filament\Resources\Containers\Pages\CreateContainer;
+use App\Domains\Inventory\Filament\Resources\Containers\Pages\EditContainer;
+use App\Domains\Inventory\Filament\Resources\Containers\Pages\ListContainers;
 use App\Domains\Inventory\Filament\Resources\Containers\RelationManagers\ItemsRelationManager;
 use App\Domains\Inventory\Filament\Resources\Containers\Schemas\ContainerForm;
 use App\Domains\Inventory\Filament\Resources\Containers\Tables\ContainersTable;
@@ -16,6 +19,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class ContainerResource extends Resource
 {
     protected static ?string $model = Container::class;
+
+    protected static ?string $slug = 'inventory/containers';
 
     protected static ?string $recordTitleAttribute = 'name_with_id';
 
@@ -43,9 +48,9 @@ class ContainerResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => \App\Domains\Inventory\Filament\Resources\Containers\Pages\ListContainers::route('/'),
-            'create' => \App\Domains\Inventory\Filament\Resources\Containers\Pages\CreateContainer::route('/create'),
-            'edit' => \App\Domains\Inventory\Filament\Resources\Containers\Pages\EditContainer::route('/{record}/edit'),
+            'index' => ListContainers::route('/'),
+            'create' => CreateContainer::route('/create'),
+            'edit' => EditContainer::route('/{record}/edit'),
         ];
     }
 

@@ -21,7 +21,7 @@ class InventoryServiceProvider extends ServiceProvider
         $this->loadViewsFrom(app_path('Domains/Inventory/resources/views'), 'Inventory');
 
         Panel::configureUsing(function (Panel $panel): void {
-            if ($panel->getId() !== 'admin') {
+            if ($panel->getId() !== 'main') {
                 return;
             }
 

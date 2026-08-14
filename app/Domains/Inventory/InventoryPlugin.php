@@ -3,8 +3,6 @@
 namespace App\Domains\Inventory;
 
 use App\Domains\Inventory\Http\Controllers\LabelController;
-use App\Domains\Inventory\Models\Container;
-use App\Domains\Inventory\Models\Item;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Illuminate\Support\Facades\Route;
@@ -37,15 +35,11 @@ class InventoryPlugin implements Plugin
                 for: 'App\\Domains\\Inventory\\Filament\\Widgets',
             )
             ->routes(function () {
-                Route::get('/containers/{container}/label', function (Container $container) {
-                    return view('Inventory::filament.schemas.components.label-container', ['model' => $container]);
-                });
-
-                Route::get('/items/{item}/label', function (Item $item) {
-                    return view('Inventory::filament.schemas.components.label-item', ['model' => $item]);
-                });
-
-                Route::get('/inventory/{entityId}/label', [LabelController::class, 'show'])->name('label.container');
+                Route::prefix('inventory')->name('inventory.')
+                    ->group(function () {
+                        Route::get('/items/{entityId}/label', [LabelController::class, 'show'])->name('items.label');
+                        Route::get('/containers/{entityId}/label', [LabelController::class, 'show'])->name('containers.label');
+                    });
             });
     }
 

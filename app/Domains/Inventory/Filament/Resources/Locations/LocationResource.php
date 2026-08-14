@@ -20,6 +20,8 @@ class LocationResource extends Resource
 {
     protected static ?string $model = Location::class;
 
+    protected static ?string $slug = 'inventory/locations';
+
     protected static ?string $recordTitleAttribute = 'name';
 
     protected static string|\UnitEnum|null $navigationGroup = 'Inventory';

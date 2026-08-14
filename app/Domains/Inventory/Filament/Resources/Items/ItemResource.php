@@ -19,6 +19,8 @@ class ItemResource extends Resource
 {
     protected static ?string $model = Item::class;
 
+    protected static ?string $slug = 'inventory/items';
+
     protected static ?string $recordTitleAttribute = 'name_with_id';
 
     protected static string|\UnitEnum|null $navigationGroup = 'Inventory';

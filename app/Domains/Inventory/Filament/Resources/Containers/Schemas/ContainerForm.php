@@ -16,7 +16,6 @@ class ContainerForm
     {
         return $schema
             ->components([
-                // Label
                 Section::make('Label')
                     ->schema([
                         View::make('Inventory::filament.schemas.components.label-container')
@@ -25,7 +24,7 @@ class ContainerForm
                     ->afterHeader([
                         Action::make('view_label')
                             ->icon(Heroicon::OutlinedDocument)
-                            ->url(route('label.container', $schema->model->public_id))
+                            ->url(route('filament.main.inventory.containers.label', $schema->model->public_id))
                             ->openUrlInNewTab()
                             ->iconButton(),
                     ]),
