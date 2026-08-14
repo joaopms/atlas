@@ -32,6 +32,8 @@ class InventoryServiceProvider extends ServiceProvider
     public function boot(): void
     {
         parent::register();
+
+        //        Settings::register(InventorySettings::class);
     }
 
     /**
