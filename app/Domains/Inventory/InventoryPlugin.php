@@ -39,6 +39,8 @@ class InventoryPlugin implements Plugin
                     ->group(function () {
                         Route::get('/items/{entityId}/label', [LabelController::class, 'show'])->name('items.label');
                         Route::get('/containers/{entityId}/label', [LabelController::class, 'show'])->name('containers.label');
+
+                        Route::get('/entities/label', [LabelController::class, 'showMultiple'])->name('entities.label');
                     });
             });
     }

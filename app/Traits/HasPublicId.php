@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Sqids\Sqids;
 
 /**
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin Model
  */
 trait HasPublicId
 {
@@ -22,7 +22,7 @@ trait HasPublicId
         $squids = new Sqids(self::COCKFORD_ALPHABET, 4);
 
         $model->forceFill([
-            'public_id' => self::publicIdIdentifier().$squids->encode([$model->getAttribute('id')]),
+            'public_id' => static::publicIdIdentifier().$squids->encode([$model->getAttribute('id')]),
         ])->save();
     }
 

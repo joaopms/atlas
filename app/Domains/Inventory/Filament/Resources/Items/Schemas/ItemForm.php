@@ -19,19 +19,22 @@ class ItemForm
         return $schema
             ->components([
                 Section::make('Label')
+                    ->visible(fn (string $operation) => $operation !== 'create')
                     ->schema([
                         View::make('Inventory::filament.schemas.components.label-item')
                             ->viewData(['model' => $schema->model]),
                     ])
                     ->afterHeader([
-                        Action::make('view_label')
-                            ->icon(Heroicon::OutlinedDocument)
-                            ->url(route('filament.main.inventory.items.label', $schema->model->public_id))
+                        Action::make('generate_label')
+                            ->icon(Heroicon::OutlinedTag)
+                            ->url(fn () => route('filament.main.inventory.items.label', $schema->model->public_id))
                             ->openUrlInNewTab()
                             ->iconButton(),
                     ]),
 
                 TextInput::make('public_id')
+                    ->label('ID')
+                    ->visible(fn (string $operation) => $operation !== 'create')
                     ->disabled()
                     ->readOnly(),
 

@@ -2,17 +2,17 @@
 
 namespace App\Domains\Inventory\Filament\Resources\Containers\Tables;
 
+use Filament\Actions\BulkAction;
 use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\ForceDeleteBulkAction;
-use Filament\Actions\RestoreAction;
 use Filament\Actions\RestoreBulkAction;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Illuminate\Support\Collection;
 
 class ContainersTable
 {
@@ -36,11 +36,16 @@ class ContainersTable
             ])
             ->recordActions([
                 EditAction::make(),
-                DeleteAction::make(),
-                RestoreAction::make(),
-                ForceDeleteAction::make(),
             ])
             ->toolbarActions([
+                BulkAction::make('generate_labels')
+                    ->icon(Heroicon::Tag)
+                    ->action(fn (Collection $records) => redirect(
+                        route('filament.main.inventory.entities.label', [
+                            'ids' => $records->pluck('public_id')->all(),
+                        ])
+                    )),
+
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                     RestoreBulkAction::make(),
