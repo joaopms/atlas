@@ -12,6 +12,7 @@
         "laravel/framework": "^13.8",
         "laravel/tinker": "^3.0",
         "milon/barcode": "^13.1",
+        "rawilk/laravel-printing": "^4.3",
         "spatie/laravel-pdf": "^2.12",
         "sqids/sqids": "^0.5.0",
         "tuupola/base32": "^2.0"

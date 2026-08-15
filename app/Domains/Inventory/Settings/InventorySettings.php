@@ -6,11 +6,17 @@ use Spatie\LaravelSettings\Settings;
 
 class InventorySettings extends Settings
 {
-    public string $label_printer = '';
+    public string $label_printer_cups_server;
 
-    public float $label_print_width = 62;
+    public int $label_printer_cups_port;
 
-    public float $label_print_height = 29;
+    public string $label_printer_name;
+
+    public string $label_printer_media;
+
+    public float $label_print_width;
+
+    public float $label_print_height;
 
     public static function group(): string
     {
