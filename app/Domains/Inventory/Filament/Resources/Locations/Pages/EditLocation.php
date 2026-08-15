@@ -7,7 +7,11 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
 use Filament\Resources\Pages\EditRecord;
+use Tests\Feature\Domains\Inventory\Filament\Resources\Locations\Pages\EditLocationTest;
 
+/**
+ * @see EditLocationTest
+ */
 class EditLocation extends EditRecord
 {
     protected static string $resource = LocationResource::class;

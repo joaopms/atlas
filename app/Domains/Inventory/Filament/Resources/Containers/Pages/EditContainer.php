@@ -7,7 +7,11 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
 use Filament\Resources\Pages\EditRecord;
+use Tests\Feature\Domains\Inventory\Filament\Resources\Containers\Pages\EditContainerTest;
 
+/**
+ * @see EditContainerTest
+ */
 class EditContainer extends EditRecord
 {
     protected static string $resource = ContainerResource::class;

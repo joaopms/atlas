@@ -8,18 +8,19 @@ use App\Domains\Inventory\Models\Item;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Enumerable;
 use Illuminate\Support\Str;
-use InvalidArgumentException;
+use Tests\Feature\Domains\Inventory\Http\Controllers\LabelControllerTest;
 
+/**
+ * @see LabelControllerTest
+ */
 class LabelController extends Controller
 {
     public function show(GeneratePdfLabels $generatePdfLabels, string $entityId)
     {
-        $entity = match (Str::charAt($entityId, 0)) {
-            'C' => Container::query()->where('public_id', $entityId)->firstOrFail(),
-            'I' => Item::query()->where('public_id', $entityId)->firstOrFail(),
-            default => throw new InvalidArgumentException('Invalid ID')
-        };
+        $entity = $this->getEntities(collect([$entityId]))->first();
+        abort_unless((bool) $entity, 404);
 
         return $generatePdfLabels->handle(collect([$entity]));
     }
@@ -30,7 +31,14 @@ class LabelController extends Controller
             'ids' => 'required|array',
         ]);
 
-        $entities = $request->collect('ids')
+        $entities = $this->getEntities($request->collect('ids'));
+
+        return $generatePdfLabels->handle($entities->collect());
+    }
+
+    public function getEntities(Collection $ids): Enumerable
+    {
+        return $ids
             ->groupBy(fn (string $entityId) => Str::charAt($entityId, 0))
             ->map(fn (Collection $ids, string $publicIdPrefix) => match ($publicIdPrefix) {
                 'C' => Container::query()->whereIn('public_id', $ids)->get(),
@@ -39,7 +47,5 @@ class LabelController extends Controller
             })
             ->filter()
             ->flatten();
-
-        return $generatePdfLabels->handle($entities->collect());
     }
 }

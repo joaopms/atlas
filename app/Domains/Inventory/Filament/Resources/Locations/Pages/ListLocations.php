@@ -5,7 +5,11 @@ namespace App\Domains\Inventory\Filament\Resources\Locations\Pages;
 use App\Domains\Inventory\Filament\Resources\Locations\LocationResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Tests\Feature\Domains\Inventory\Filament\Resources\Locations\Pages\ListLocationsTest;
 
+/**
+ * @see ListLocationsTest
+ */
 class ListLocations extends ListRecords
 {
     protected static string $resource = LocationResource::class;

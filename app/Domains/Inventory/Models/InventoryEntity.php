@@ -23,5 +23,5 @@ abstract class InventoryEntity extends Model
         );
     }
 
-    //    abstract protected static function publicIdIdentifier(): string;
+    abstract protected static function publicIdIdentifier(): string;
 }

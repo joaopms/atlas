@@ -17,6 +17,7 @@ class ContainerForm
         return $schema
             ->components([
                 Section::make('Label')
+                    ->key('label')
                     ->visible(fn (string $operation) => $operation !== 'create')
                     ->schema([
                         View::make('Inventory::filament.schemas.components.label-container')

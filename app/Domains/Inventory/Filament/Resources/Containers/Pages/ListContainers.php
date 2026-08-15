@@ -5,7 +5,11 @@ namespace App\Domains\Inventory\Filament\Resources\Containers\Pages;
 use App\Domains\Inventory\Filament\Resources\Containers\ContainerResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Tests\Feature\Domains\Inventory\Filament\Resources\Containers\Pages\ListContainersTest;
 
+/**
+ * @see ListContainersTest
+ */
 class ListContainers extends ListRecords
 {
     protected static string $resource = ContainerResource::class;
