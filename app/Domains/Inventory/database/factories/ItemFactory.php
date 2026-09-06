@@ -17,6 +17,7 @@ class ItemFactory extends Factory
             'public_id' => $this->faker->word(),
             'container_id' => Container::factory(),
             'name' => $this->faker->name(),
+            'quantity' => $this->faker->numberBetween(1, 9),
             'notes' => $this->faker->word(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),

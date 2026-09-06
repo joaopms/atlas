@@ -42,6 +42,11 @@ class ItemForm
                 TextInput::make('name')
                     ->required(),
 
+                TextInput::make('quantity')
+                    ->required()
+                    ->integer()
+                    ->minValue(1),
+
                 Select::make('container_id')
                     ->relationship('container', 'name')
                     ->searchable()

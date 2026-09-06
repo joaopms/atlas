@@ -10,13 +10,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[UseFactory(ItemFactory::class)]
-#[Fillable('name')]
+#[Fillable('name', 'quantity')]
 class Item extends InventoryEntity
 {
     use HasFactory;
     use SoftDeletes;
 
     protected $table = 'inventory_items';
+
+    protected function casts(): array
+    {
+        return [
+            'quantity' => 'integer',
+        ];
+    }
 
     public function container(): BelongsTo
     {

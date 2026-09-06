@@ -27,6 +27,10 @@ class ItemsTable
                 TextColumn::make('name')
                     ->searchable(),
 
+                TextColumn::make('quantity')
+                    ->numeric()
+                    ->searchable(),
+
                 TextColumn::make('container.name_with_id')
                     ->searchable(),
 
