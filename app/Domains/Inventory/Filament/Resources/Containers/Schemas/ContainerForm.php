@@ -2,6 +2,7 @@
 
 namespace App\Domains\Inventory\Filament\Resources\Containers\Schemas;
 
+use App\Domains\Inventory\Filament\Resources\Locations\Schemas\LocationForm;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -9,6 +10,7 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\View;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Support\Str;
 
 class ContainerForm
 {
@@ -18,7 +20,7 @@ class ContainerForm
             ->components([
                 Section::make('Label')
                     ->key('label')
-                    ->visible(fn (string $operation) => $operation !== 'create')
+                    ->visible(fn (string $operation) => ! Str::startsWith($operation, 'create'))
                     ->schema([
                         View::make('Inventory::filament.schemas.components.label-container')
                             ->viewData(['model' => $schema->model]),
@@ -44,10 +46,7 @@ class ContainerForm
                     ->relationship('location', 'name')
                     ->searchable()
                     ->preload()
-                    ->createOptionForm([
-                        TextInput::make('name')
-                            ->required(),
-                    ]),
+                    ->createOptionForm(LocationForm::configure(...)),
             ]);
     }
 }
