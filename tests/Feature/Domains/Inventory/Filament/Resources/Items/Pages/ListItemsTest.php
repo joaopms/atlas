@@ -3,6 +3,7 @@
 namespace Tests\Feature\Domains\Inventory\Filament\Resources\Items\Pages;
 
 use App\Domains\Inventory\Filament\Resources\Items\Pages\ListItems;
+use App\Domains\Inventory\Models\Container;
 use App\Domains\Inventory\Models\Item;
 use Filament\Actions\Testing\TestAction;
 use Livewire\Livewire;
@@ -36,5 +37,25 @@ class ListItemsTest extends TestCase
                 'filament.main.inventory.entities.label',
                 ['ids' => $items->pluck('public_id')->values()->all()]
             );
+    }
+
+    #[Test]
+    public function can_assign_containers_in_bulk()
+    {
+        $container = Container::factory()->create();
+        $items = Item::factory()->count(5)->create([
+            'container_id' => null,
+        ]);
+
+        Livewire::test(ListItems::class)
+            ->callTableBulkAction(
+                'assign_container',
+                $items,
+                ['container_id' => $container->id]
+            )
+            ->assertHasNoErrors()
+            ->assertNotified('Container assigned successfully');
+
+        $items->each(fn (Item $item) => $this->assertEquals($container->id, $item->fresh()->container_id));
     }
 }

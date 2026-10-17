@@ -2,12 +2,16 @@
 
 namespace App\Domains\Inventory\Filament\Resources\Items\Tables;
 
+use App\Domains\Inventory\Filament\Resources\Containers\Schemas\ContainerForm;
+use App\Domains\Inventory\Models\Container;
+use App\Domains\Inventory\Models\Item;
 use Filament\Actions\BulkAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
+use Filament\Forms\Components\Select;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
@@ -68,6 +72,24 @@ class ItemsTable
                     )),
 
                 BulkActionGroup::make([
+                    BulkAction::make('assign_container')
+                        ->icon(Heroicon::OutlinedArchiveBox)
+                        ->schema([
+                            Select::make('container_id')
+                                ->relationship('container', 'name')
+                                ->searchable()
+                                ->preload()
+                                ->createOptionForm(ContainerForm::configure(...))
+                                ->editOptionForm(ContainerForm::configure(...))
+                                ->getOptionLabelFromRecordUsing(fn /** @var $record Container */ ($record) => $record->name_with_id),
+                        ])
+                        ->action(fn (Collection $records, array $data) => $records
+                            ->each(fn (Item $container) => $container->update([
+                                'container_id' => $data['container_id'],
+                            ])))
+                        ->deselectRecordsAfterCompletion()
+                        ->successNotificationTitle('Container assigned successfully'),
+
                     DeleteBulkAction::make(),
                     ForceDeleteBulkAction::make(),
                     RestoreBulkAction::make(),

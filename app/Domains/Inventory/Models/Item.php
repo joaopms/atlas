@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[UseFactory(ItemFactory::class)]
-#[Fillable('name', 'quantity')]
+#[Fillable('name', 'quantity', 'container_id')]
 class Item extends InventoryEntity
 {
     use HasFactory;
