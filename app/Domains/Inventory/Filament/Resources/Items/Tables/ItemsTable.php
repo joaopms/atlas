@@ -94,6 +94,8 @@ class ItemsTable
                     ForceDeleteBulkAction::make(),
                     RestoreBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->paginated([50, 100, 250, 500])
+            ->defaultPaginationPageOption(50);
     }
 }

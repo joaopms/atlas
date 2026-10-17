@@ -27,6 +27,9 @@ class ContainersTable
                     ->searchable()
                     ->sortable(),
 
+                TextColumn::make('location.name')
+                    ->searchable(),
+
                 TextColumn::make('items_count')
                     ->label('Items')
                     ->counts('items'),
